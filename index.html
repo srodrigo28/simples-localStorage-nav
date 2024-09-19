@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage - start</title>
+</head>
+<body>
+
+    <h3>Seja bem vindo: <span id="nome_gravado"></span></h3>
+    <input type="text" id="nome" placeholder="nome completo">
+    <button id="gravar">Gravar</button>
+
+    <script>
+        var input_nome = document.getElementById('nome')
+
+        var btn_gravar = document.getElementById('gravar')
+        var nome_gravado = document.getElementById('nome_gravado')
+
+        btn_gravar.addEventListener('click', function() {
+            var nome = input_nome.value
+
+            localStorage.setItem('nome', nome)
+            alert('Nome gravado com sucesso!')
+
+             window.location.href = './painel.html'
+        })
+        
+    </script>
+</body>
+</html>
