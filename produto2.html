@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto</title>
+</head>
+<body>
+
+    <h3>Seja bem vindo: <span id="nome_gravado"></span></h3>
+    <button id="btn_sair">Sair</button>
+
+    <div class="btn-group">
+        <input type="text" id="input" placeholder="Adicionar item">
+        <button id="addItem">Adicionar</button>
+        <button id="clearItems">Limpar todos</button>
+    </div>
+
+    <div id="d"></div>
+
+    <script>
+        nome_gravado.textContent = localStorage.getItem('nome')
+
+        var btn_sair = document.getElementById('btn_sair')
+
+        btn_sair.addEventListener('click', function() {
+            var sair = window.confirm('Deseja sair ? ' + nome_gravado.textContent)
+
+            if(sair === true){
+                localStorage.removeItem('nome')
+                window.location.href = './index.html'
+            }
+        })
+
+        // TODO:
+        var btn_adicionar = document.getElementById('addItem')
+        var clearItems = document.getElementById('clearItems')
+
+        let lista = [];
+
+        btn_adicionar.addEventListener('click', () => {
+            if(localStorage.minha_lista){
+                lista = JSON.parse(localStorage.getItem('minha_lista'));
+            }
+
+            let novoItem = document.getElementById('input').value
+            lista.push(novoItem);
+            localStorage.minha_lista = JSON.stringify(lista)
+
+            document.getElementById('input').value = "";
+
+            window.location.reload();
+        })
+
+        function showItems() {
+            let resultDiv = document.querySelector('#d');
+            resultDiv.innerHTML = "";
+            if(localStorage.minha_lista){
+                lista = JSON.parse(localStorage.getItem('minha_lista'));
+            }
+
+            for(var i in lista){
+                let p = document.createElement("p");
+                p.textContent = lista[i];
+                resultDiv.appendChild(p);
+
+                console.log(lista[i]);
+            }
+        }
+        
+        showItems()
+
+        clearItems.addEventListener('click', (e) => {
+            e.preventDefault()
+            let confirme = window.confirm('Deseja apagar tudo ? ')
+
+            if(confirme){
+                localStorage.removeItem('minha_lista')
+            }
+            window.location.reload();
+        })
+    </script>
+</body>
+</html>

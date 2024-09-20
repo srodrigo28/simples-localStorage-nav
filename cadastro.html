@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+
+    <main>
+        <form id="cad-usuario-form">
+            <h3>Cadastra-se:</span></h3>
+            <input type="text" name="nome" placeholder="Nome completo">
+            <input type="text" name="email" placeholder="E-mail">
+            <input type="text" name="senha" placeholder="senha">
+            <div class="btn-group">
+                <button type="submit" id="gravar">Gravar</button>
+                <button type="button" onclick="showItems()" id="mostrar">mostar</button>
+            </div>
+        </form>
+    </main>
+
+    <div id="conteudo">
+
+    </div>
+
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 50px;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: blue;
+        }
+        main, form {
+            width: 300px;
+            height: 45vh;
+            padding: 20px;
+            gap: 10px;
+            display: flex;
+            color: white;
+            align-items: center;
+            border-radius: 10px;
+            flex-direction: column;
+            background-color: blueviolet;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        input, button{
+            padding: 7px;
+            border-radius: 7px;
+            outline: none;
+            border: none;
+        }
+        button{
+            width: 60px;
+            opacity: .7;
+            transition: .9s;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover{
+            opacity: 1;
+            transform: scale(1.18);
+        }
+
+        #conteudo{
+            font-size: 12px;
+            margin-top: 20px;
+            margin-left: 20px;
+            height: 40vh;   
+            overflow-y: scroll;
+            overflow-x: scroll;
+        }
+    </style>
+
+    <script>
+        var cadForm = document.getElementById("cad-usuario-form")
+        
+        cadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var nome = cadForm.nome.value;
+            var email = cadForm.email.value;
+            var senha = cadForm.senha.value;
+
+            // Cria uma lista para quardar os dados
+            let usuarios = []
+
+            // Verifica se a propriedade no localStorage
+            if(localStorage.hasOwnProperty("usuarios")){
+                // Recupera todos os dados que está na lisga
+                // Converte de String para Objeto
+                usuarios = JSON.parse(localStorage.getItem("usuarios"))
+            }
+
+            // Adiciona um novo usuário
+            if(!nome || !email || !senha){
+                alert('Todos os campos são obrigatórios!')
+                return false
+            }else{
+                usuarios.push(
+                    { nome: nome, email: email, senha: senha }
+                )
+            }
+
+            // Salva no localStorage
+            localStorage.setItem("usuarios", JSON.stringify(usuarios))
+
+            document.getElementById("conteudo").insertAdjacentHTML("beforeend", "Nome: " + nome + "<br>" + "email: " + email + "<br>" + "senha: " + senha + "<br> <hr>")
+            alert('Salvar')
+        })
+
+        function showItems() {
+            let resultDiv = document.querySelector('#conteudo');
+            // resultDiv.innerHTML = "";
+            if(localStorage.minha_lista){
+                lista = JSON.parse(localStorage.getItem('usuarios'));
+            }
+
+            lista.forEach( item => {
+                let p = document.createElement("p");
+                p.textContent = item.nome;
+                
+                let span = document.createElement("span");
+                span.textContent = item.email;
+
+                let strong = document.createElement("strong");
+                strong.textContent = item.senha;
+
+                resultDiv.appendChild(p);
+                resultDiv.appendChild(span)
+                resultDiv.appendChild(strong)
+            })
+        }
+
+    </script>
+</body>
+</html>

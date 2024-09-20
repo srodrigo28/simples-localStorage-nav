@@ -7,9 +7,37 @@
 </head>
 <body>
 
-    <h3>Seja bem vindo: <span id="nome_gravado"></span></h3>
-    <input type="text" id="nome" placeholder="nome completo">
-    <button id="gravar">Gravar</button>
+    <main>
+        <h3>Seja bem vindo: <span id="nome_gravado"></span></h3>
+        <input type="text" id="nome" placeholder="nome completo">
+        <button id="gravar">Gravar</button>
+    </main>
+
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 100px;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: blue;
+        }
+        main {
+            width: 300px;
+            height: 30vh;
+            padding: 20px;
+            gap: 10px;
+            display: flex;
+            color: white;
+            align-items: center;
+            border-radius: 10px;
+            flex-direction: column;
+            background-color: blueviolet;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 
     <script>
         var input_nome = document.getElementById('nome')
